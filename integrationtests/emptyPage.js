@@ -3,7 +3,7 @@
 
 var controls = require('./_controls');
 
-var url = 'http://localhost/todomvc-refactoring/index.html';
+var url = 'http://localhost:8080/index.html';
 var browser = kommando.browser;
 
 browser.manage().window().setSize(800, 600);
