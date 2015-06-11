@@ -28,7 +28,7 @@ function updateView() {
   });
 }
 
-var storage = new LocalStorage('react-todos');
+var storage = new LocalStorage('react-todos', window.localStorage);
 var model = new TodoModel(storage);
 model.subscribe(updateView);
 todoApp = React.render(

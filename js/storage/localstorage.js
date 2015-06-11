@@ -1,12 +1,13 @@
 'use strict';
 /* global localStorage module */
 
-function LocalStorage(key) {
+function LocalStorage(key, storage) {
+
   this.get = function() {
-    return (localStorage.getItem(key) && JSON.parse(localStorage.getItem(key))) || [];
+    return (storage.getItem(key) && JSON.parse(storage.getItem(key))) || [];
   };
   this.set = function(todos) {
-    localStorage.setItem(key, JSON.stringify(todos));
+    storage.setItem(key, JSON.stringify(todos));
   };
 }
 
