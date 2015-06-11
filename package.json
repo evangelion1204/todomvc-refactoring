@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/evangelion1204/todomvc-refactoring/issues"
   },
-  "homepage": "https://github.com/evangelion1204/todomvc-refactoring"
+  "homepage": "https://github.com/evangelion1204/todomvc-refactoring",
+  "devDependencies": {
+    "eslint": "^0.22.1"
+  }
 }
