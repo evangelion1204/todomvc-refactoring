@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha",
-    "lint": "eslint js --ext .jsx",
+    "lint": "eslint js --ext .js",
     "test:integration": "npm run lint && kommando --browser firefox integrationtests/emptyPage.js integrationtests/addOneItem.js integrationtests/filterCompletedItems.js"
   },
   "repository": {
