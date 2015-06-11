@@ -1,11 +1,11 @@
 'use strict';
 /*global require*/
 var assert = require('assert');
-var LocalStorage = require('../js/storage/localstorage');
+var Storage = require('../js/storage/storage');
 
 describe('Localstorage ', function() {
   it('is available', function () {
-    assert.notEqual(new LocalStorage('todos'), undefined);
+    assert.notEqual(new Storage('todos'), undefined);
   });
 
   it('get and set value', function () {
@@ -17,7 +17,7 @@ describe('Localstorage ', function() {
         tmp[key] = value;
       }
     };
-    var storage = new LocalStorage('todos', localStorage);
+    var storage = new Storage('todos', localStorage);
     var tmp = {};
 
 

@@ -4,7 +4,7 @@ var Filter = require('./filter.js');
 var TodoModel = require('./todo-model.js');
 var TodoApp = require('./app.js');
 var getStats = require('./util/stats.js');
-var LocalStorage = require('./storage/localstorage.js');
+var LocalStorage = require('./storage/storage.js');
 
 var filterData = [
   {url: '/', linkText: 'All'},

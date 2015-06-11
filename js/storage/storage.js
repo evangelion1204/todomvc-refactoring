@@ -1,7 +1,7 @@
 'use strict';
 /* global localStorage module */
 
-function LocalStorage(key, storage) {
+function Storage(key, storage) {
 
   this.get = function() {
     return (storage.getItem(key) && JSON.parse(storage.getItem(key))) || [];
@@ -11,4 +11,4 @@ function LocalStorage(key, storage) {
   };
 }
 
-module.exports = LocalStorage;
+module.exports = Storage;
