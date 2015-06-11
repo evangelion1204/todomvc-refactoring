@@ -4,8 +4,9 @@
   "description": "A clone of the react todo MVC app in order to refactor it.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint js --ext .jsx"
+    "test": "mocha",
+    "lint": "eslint js --ext .jsx",
+    "test:integration": "kommando --browser firefox integrationtests/emptyPage.js"
   },
   "repository": {
     "type": "git",
@@ -18,6 +19,8 @@
   },
   "homepage": "https://github.com/evangelion1204/todomvc-refactoring",
   "devDependencies": {
-    "eslint": "^0.22.1"
+    "eslint": "^0.22.1",
+    "mocha": "^2.2.5",
+    "kommando": "^1.0.0"
   }
 }
