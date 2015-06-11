@@ -1,8 +1,16 @@
+'use strict';
+/* global React */
+/* global Router */
 var app = {};
 function more() {
   var newObj = {};
   for (var i = 0; i < arguments.length; i++) {var obj = arguments[i];
-  for (var key in obj) {if (obj.hasOwnProperty(key))newObj[key] = obj[key];}}
+  for (var key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        newObj[key] = obj[key];
+      }
+    }
+  }
   return newObj;
 }
 function Filter(filters) {
@@ -12,7 +20,7 @@ function Filter(filters) {
 
 Filter.prototype = {
   applyOn: function(todos) {
-    return this._filters[this._current].criteria?todos.filter(this._filters[this._current].criteria):todos;
+    return this._filters[this._current].criteria ? todos.filter(this._filters[this._current].criteria) : todos;
   },
 
   getViewValues: function() {
@@ -172,7 +180,7 @@ app.TodoItems = React.createClass({
   },
 
   render: function () {
-    var model = this.props.model;
+    var renderModel = this.props.model;
     var todos = this.props.todos;
     var self = this;
     function _renderItem(todo) {
@@ -180,8 +188,8 @@ app.TodoItems = React.createClass({
         <app.TodoItem
           key={todo.id}
           todo={todo}
-          onToggle={model.toggle.bind(model, todo)}
-          onDestroy={model.destroy.bind(model, todo)}
+          onToggle={renderModel.toggle.bind(renderModel, todo)}
+          onDestroy={renderModel.destroy.bind(renderModel, todo)}
           onEdit={self.edit.bind(self, todo)}
           editing={self.state.editing === todo.id}
           onSave={self.save.bind(self, todo)}
@@ -200,8 +208,8 @@ app.TodoItems = React.createClass({
 
 var filterData = [
   {url: '/', linkText: 'All'},
-  {url: '/active', linkText: 'Active', criteria: function(todo) { return !todo.completed }},
-  {url: '/completed', linkText: 'Completed', criteria: function(todo) { return todo.completed }}
+  {url: '/active', linkText: 'Active', criteria: function(todo) { return !todo.completed; }},
+  {url: '/completed', linkText: 'Completed', criteria: function(todo) { return todo.completed; }}
 ];
 var filter = new Filter(filterData);
 
@@ -211,7 +219,7 @@ function updateViewFilteredBy(index) {
 }
 
 function getStats(todos) {
-  var activeCount = todos.filter(function(todo) { return !todo.completed}).length;
+  var activeCount = todos.filter(function(todo) { return !todo.completed; }).length;
   return {
     activeCount: activeCount,
     completedCount: todos.length - activeCount
@@ -225,7 +233,7 @@ function updateView() {
     todos: filter.applyOn(model.todos),
     filters: filter.getViewValues(),
     stats: getStats(model.todos)
-  })
+  });
 }
 
 app.TodoApp = React.createClass({
@@ -233,49 +241,51 @@ app.TodoApp = React.createClass({
   render: function () {
     var props = this.props;
     var stats = props.stats;
- 
-    var model = this.props.model;
+
+    var renderModel = this.props.model;
     var newField = this.refs.newField;
     function doun(event) {
       if (event.which !== 13) {
         return;
-      } else { 
+      } else {
         event.preventDefault();
         var val = newField.getDOMNode().value.trim();
         if (val) {
           var t = {id: '', title: val, completed: false};
           var random;
           for (var i = 0; i < 32; i++) {
-            random = Math.random()*16|0;
-            if (i===8||i===12||i=== 16||i===20)t.id+='-';
-            t.id+=(i===12?4:(i===16?(random&3|8):random)).toString(16);
+            random = Math.random() * 16 | 0;
+            if (i === 8 || i === 12 || i === 16 || i === 20) {
+              t.id += '-';
+            }
+            t.id += (i === 12 ? 4 : (i === 16 ? (random & 3 | 8) : random)).toString(16);
           }
-          model.todos = model.todos.concat(t);
-          model.inform();
-          
+          renderModel.todos = renderModel.todos.concat(t);
+          renderModel.inform();
+
           newField.getDOMNode().value = '';
         }
       }
     }
-    
+
     return (
       <div><header id="header"><h1>todos</h1>
       <input ref="newField" id="new-todo" placeholder="What needs to be done?" onKeyDown={doun} autoFocus={true}/>
       </header>
       <app.TodoItems model={props.model} todos={props.todos} checked={stats.activeCount === 0}/>
-      {this.props.stats.activeCount || this.props.stats.completedCount ? this.allDownThere() :(<footer></footer>)}</div>
+      {this.props.stats.activeCount || this.props.stats.completedCount ? this.allDownThere() : (<footer></footer>)}</div>
     );
   },
 
   allDownThere: function() {
     var clear = this.props.stats.completedCount > 0 ?
-      <button id="clear-completed" onClick={this.props.clearCompleted}>Clear completed ({this.props.stats.completedCount})</button>:
+      <button id="clear-completed" onClick={this.props.clearCompleted}>Clear completed ({this.props.stats.completedCount})</button> :
       <div></div>;
-    
+
     return (
       <footer id="footer">
       <span id="todo-count"><strong>{this.props.stats.activeCount}</strong> {this.props.stats.activeCount === 1 ? 'item' : 'items'} left</span>
-      <ul id="filters">{this.props.filters.map(function(data) {return (<li><a href={data.url} className={data.selected ? 'selected' : ''}>{data.linkText}</a></li>)})}
+      <ul id="filters">{this.props.filters.map(function(data) {return (<li><a href={data.url} className={data.selected ? 'selected' : ''}>{data.linkText}</a></li>); })}
       </ul>{clear}</footer>
     );
 
@@ -299,4 +309,4 @@ filterData.forEach(function(f, idx) {
   routerData[f.url] = updateViewFilteredBy.bind(null, idx);
 });
 var router = new Router(routerData);
-router.init(filterData[0].url); 
+router.init(filterData[0].url);
